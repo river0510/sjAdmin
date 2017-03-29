@@ -37,7 +37,9 @@ class Login extends React.Component {
 				}).then((data) => {
 					if (data.status == 200) {
 						message.success(data.message);
-						sessionStorage.setItem('token', data.token);
+						sessionStorage.userName = data.user.userName;
+						sessionStorage.role = data.user.role;
+						sessionStorage.id = data.user.id;
 						this.context.router.push('/');
 					} else {
 						message.error(data.message);
@@ -58,14 +60,14 @@ class Login extends React.Component {
 		          {getFieldDecorator('userName', {
 		            rules: [{ required: true, message: '请输入用户名!' }],
 		          })(
-		            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
+		            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
 		          )}
 		        </FormItem>
 		        <FormItem>
 		          {getFieldDecorator('password', {
 		            rules: [{ required: true, message: '请输入密码!' }],
 		          })(
-		            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
+		            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="密码" />
 		          )}
 		        </FormItem>
 		        <FormItem>

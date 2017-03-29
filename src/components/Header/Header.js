@@ -1,8 +1,12 @@
 import React from 'react'
 import {
+  Link
+} from 'react-router'
+import {
   Menu,
   Icon
 } from 'antd'
+
 
 import './Header.scss'
 
@@ -27,6 +31,12 @@ export default class Header extends React.Component {
         <Menu.Item key="mail">
           <Icon type="mail" />审计后台管理系统
         </Menu.Item>
+        <Menu.Item className='link' key="1">
+          <Link  to='/login' >退出</Link>
+        </Menu.Item>
+        <Menu.Item className='link' key="2">
+          <Link to='/account' ><Icon type="setting" />账号管理</Link>
+        </Menu.Item>                     
       </Menu>
     );
   }

@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
 import AddArticle from './pages/AddArticle'
+import Account from './pages/Account'
 
 // Render the main component into the dom
 ReactDOM.render((
@@ -18,6 +19,7 @@ ReactDOM.render((
 		<Route component={HomeLayout}>
 			<Route path='/' component={Home}/>
 			<Route path='/addArticle' component={AddArticle}/>
+			<Route path='/account' component={Account}/>
 		</Route>
 		<Route path='/login' component={Login}/>
 		<Route path='/signup' component={Signup}/>

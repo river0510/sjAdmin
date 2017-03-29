@@ -3,9 +3,9 @@ import Header from '../components/Header/Header'
 import Sider from '../components/Sider/Sider'
 import './home-layout.scss'
 
-export default class HomeLayout extends React.Component {
+class HomeLayout extends React.Component {
 	componentWillMount() {
-		if (sessionStorage.getItem('token') == null) {
+		if (sessionStorage.userName == null) {
 			this.context.router.push('/login');
 		}
 	}
@@ -25,3 +25,4 @@ export default class HomeLayout extends React.Component {
 HomeLayout.contextTypes = {
 	router: React.PropTypes.object.isRequired
 };
+export default HomeLayout
