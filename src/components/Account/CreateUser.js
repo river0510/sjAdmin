@@ -47,6 +47,7 @@ class CreateUser extends React.Component {
 				}).catch(err => console.log(err))
 			}
 		});
+		this.props.getUsers();
 	}
 	render() {
 		const {
