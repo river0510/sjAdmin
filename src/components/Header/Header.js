@@ -29,7 +29,7 @@ export default class Header extends React.Component {
         className="header-menu"
       >
         <Menu.Item key="mail">
-          <Icon type="mail" />审计后台管理系统
+          <Icon type="mail" />后台管理系统
         </Menu.Item>
         <Menu.Item className='link' key="1">
           <Link  to='/login' >退出</Link>
