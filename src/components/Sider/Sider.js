@@ -55,7 +55,7 @@ export default class Sider extends React.Component {
 	      >
 	        <SubMenu key="sub1" title={<span>官网首页</span>}>
 	          <Menu.Item key="1"><Link to='/addCarousel'>轮播图</Link></Menu.Item>
-	          <Menu.Item key="2"><Link >产品介绍</Link></Menu.Item>
+	          <Menu.Item key="2"><Link to='/addProduction'>产品介绍</Link></Menu.Item>
 	          <Menu.Item key="3"><Link >页尾链接</Link></Menu.Item>
 	        </SubMenu>
 	        <SubMenu key="sub2" title={<span>体验馆</span>}>
