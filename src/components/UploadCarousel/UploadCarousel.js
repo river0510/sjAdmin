@@ -3,7 +3,7 @@ import {Upload, Icon, Modal} from 'antd'
 import config from '../../config'
 
 
-// props 配置 {maxNumber 最大上传数量，uploadType 上传类别，multiple 多文件上传}
+// props 配置 {maxNumber 最大上传数量，uploadType 上传类别，multiple 多文件上传, handleImg 保存返回的图片url}
 export default class UploadPic extends React.Component{
 	state = {
 		previewVisible: false,
@@ -21,18 +21,22 @@ export default class UploadPic extends React.Component{
 	}
 
 	handleChange = ({ file, fileList }) => {
-		let image_src = file.response && file.response.data.image_src;
-		console.log(image_src,fileList)
+		let newFileList;
+		if(file.status === 'done'){
+			let newFileList = fileList.map((value,index)=>{
+				if(file.uid === value.uid){
+					value.url = file.response.data.image_src[0];
+				}
+				return value;
+			})
+		}
+		fileList = newFileList || fileList;
+		this.props.handleImg(fileList);
 		this.setState({ fileList });
 	}
 
 	componentDidMount(){
-		if(this.props.fileList){
-			let newFileList = [...this.state.fileList,...this.props.fileList];
-			this.setState({
-				fileList: newFileList
-			})
-		}
+		this._getImg();
 	}
 
 	render(){
@@ -62,5 +66,31 @@ export default class UploadPic extends React.Component{
 	        </Modal>
 	      </div>
 	    );
+	}
+
+	_getImg = () => {
+		fetch(config.api + '/getCarousel', {
+			method: 'get',
+			mode: 'cors',
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			}
+		}).then( res => res.json())
+		.then((data)=>{
+			if(data.status = 200){
+				let fileList = [];
+				data.carousel && data.carousel.forEach((value,index)=>{
+					fileList[index] = {
+						uid: - (index + 1),
+						name: `${index + 1}.png`,
+						status: 'done',
+						url: value
+					}
+				})
+				this.setState({
+					fileList
+				})
+			}
+		})
 	}
 }
