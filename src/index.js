@@ -14,6 +14,7 @@ import Account from './pages/Account'
 import AddCarousel from './pages/AddCarousel'
 import AddProduction from './pages/AddProduction'
 import ModifyProduction from './pages/ModifyProduction'
+import AddFooterLink from './pages/AddFooterLink'
 
 // Render the main component into the dom
 ReactDOM.render((
@@ -24,6 +25,7 @@ ReactDOM.render((
 			<Route path='/addCarousel' component={AddCarousel}/>
 			<Route path='/addProduction' component={AddProduction}/>
 			<Route path='/addProduction/:productionId' component={ModifyProduction}/>
+			<Route path='/addFooterLink' component={AddFooterLink}/>
 		</Route>
 		<Route path='/login' component={Login}/>
 		<Route path='/signup' component={Signup}/>
