@@ -40,9 +40,9 @@ export default class FooterLinkList extends React.Component{
 									modifyLink: record
 								},this._showLinkModal)
 							}
-						}/>
+						} style={{cursor: 'pointer'}}/>
 						<span className='ant-divider'></span>
-						<Icon type="delete" onClick={this._deleteLink.bind(this,record.linkId)}/>
+						<Icon type="delete" onClick={this._deleteLink.bind(this,record.linkId)} style={{cursor: 'pointer'}}/>
 					</div>
 				)
 			}
@@ -159,9 +159,9 @@ class LinkModal extends React.Component{
 		let {linkName_CN, linkName_EN, linkURL} = this.state,
 			{modifyLink, selectedKey} = this.props;
 		//如果modifyLink.linkId 存在 则为修改，否则为添加
-		if(modifyLink.linkId){
+		if(!modifyLink.linkId){
 			if(!linkName_CN || !linkName_EN || !linkURL){
-				message.error('不能为空');
+				message.error('不能为空 或 未修改');
 				return;
 			}
 
@@ -186,7 +186,7 @@ class LinkModal extends React.Component{
 				message.error('不能为空');
 				return;
 			}
-			
+
 			let body = `linkName_CN=${linkName_CN}&linkName_EN=${linkName_EN}&linkURL=${linkURL}&selectedKey=${selectedKey}`
 			fetch(config.api + '/addLink',{
 				method: 'post',
