@@ -3,7 +3,7 @@ import {Upload, Icon, Modal} from 'antd'
 import config from '../../config'
 
 
-// props 配置 {maxNumber 最大上传数量，uploadType 上传类别，multiple 多文件上传, handleImg 保存返回的图片url}
+// props 配置 {maxNumber 最大上传数量，uploadType 上传类别，multiple 多文件上传(默认false), handleImg(fileList) 保存返回的图片url}
 export default class UploadPic extends React.Component{
 	state = {
 		previewVisible: false,
@@ -31,7 +31,9 @@ export default class UploadPic extends React.Component{
 			})
 		}
 		fileList = newFileList || fileList;
-		this.props.handleImg(fileList);
+		if(this.props.handleImg instanceof Function){
+			this.props.handleImg(fileList);
+		}
 		this.setState({ fileList });
 	}
 

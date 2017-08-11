@@ -7,8 +7,8 @@ export default class GalleryList extends React.Component{
 	render(){
 		return(
 			<div className="galleryList">
-				<GalleryBlock />
-				<AddBlock/>
+				<GalleryBlock style={{...this.props.style}}/>
+				<AddBlock style={{...this.props.style}} addClick={this.props.addClick}/>
 			</div>
 		)
 	}
@@ -17,11 +17,11 @@ export default class GalleryList extends React.Component{
 class AddBlock extends React.Component{
 	render(){
 		return(	
-			<div className="block addBlock">
+			<div className="block addBlock" style={{...this.props.style}}>
 				<div className="addBlock-wrapper wrapper">
 					<div className="mask">
 						<div className="mask-icon-bar">
-							<Icon type="plus" className='mask-icon'/>
+							<Icon type="plus" className='mask-icon' onClick={this.props.addClick}/>
 						</div>
 					</div>
 				</div>
