@@ -1,16 +1,7 @@
 import React from 'react'
 import './LoginForm.scss';
-import {
-	Form,
-	Icon,
-	Input,
-	Button,
-	Checkbox,
-	message
-} from 'antd';
-import {
-	Link
-} from 'react-router';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
+import { Link } from 'react-router';
 import config from '../../config'
 const FormItem = Form.Item;
 
