@@ -15,7 +15,8 @@ import AddCarousel from './pages/AddCarousel'
 import AddProduction from './pages/AddProduction'
 import ModifyProduction from './pages/ModifyProduction'
 import AddFooterLink from './pages/AddFooterLink'
-import Gallery from './pages/Gallery'
+import LivingRoom from './pages/LivingRoom'
+import BedRoom from './pages/BedRoom'
 
 // Render the main component into the dom
 ReactDOM.render((
@@ -27,7 +28,8 @@ ReactDOM.render((
 			<Route path='/addProduction' component={AddProduction}/>
 			<Route path='/addProduction/:productionId' component={ModifyProduction}/>
 			<Route path='/addFooterLink' component={AddFooterLink}/>
-			<Route path='/gallery/:type' component={Gallery}/>
+			<Route path='/livingRoom' component={LivingRoom}/>
+			<Route path='/bedRoom' component={BedRoom}/>
 		</Route>
 		<Route path='/login' component={Login}/>
 		<Route path='/signup' component={Signup}/>

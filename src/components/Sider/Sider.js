@@ -58,8 +58,8 @@ export default class Sider extends React.Component {
 	          <Menu.Item key="3"><Link to='/addFooterLink'>页尾链接</Link></Menu.Item>
 	        </SubMenu>
 	        <SubMenu key="sub2" title={<span>体验馆</span>}>
-	          <Menu.Item key="4"><Link to='/gallery/livingRoom'>客厅</Link></Menu.Item>
-	          <Menu.Item key="5"><Link to='/gallery/bedRoom'>卧室</Link></Menu.Item>
+	          <Menu.Item key="4"><Link to='/livingRoom'>客厅</Link></Menu.Item>
+	          <Menu.Item key="5"><Link to='/bedRoom'>卧室</Link></Menu.Item>
 	        </SubMenu>                             
 	      </Menu>
 		);

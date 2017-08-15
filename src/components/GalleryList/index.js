@@ -3,12 +3,24 @@ import GalleryBlock from './GalleryBlock'
 import {Icon} from 'antd'
 import './galleryList.scss'
 
+// props {addClick 添加图片点击回调， img 图片数组 ， maxNumber 最大展示图片数}
 export default class GalleryList extends React.Component{
 	render(){
+		let {addClick, img, maxNumber, style} = this.props,
+			addBlock, galleryBlocks = [];
+		if(maxNumber){
+			addBlock = img.length >= maxNumber ? null : <AddBlock style={{style}} addClick={addClick}/>
+		}else{
+			addBlock = <AddBlock style={{style}} addClick={addClick}/>
+		}
+
+		galleryBlocks = img.map((value,index)=>
+			<GalleryBlock style={{...style}} img={value} key={index}/>
+		)
 		return(
 			<div className="galleryList">
-				<GalleryBlock style={{...this.props.style}}/>
-				<AddBlock style={{...this.props.style}} addClick={this.props.addClick}/>
+				{galleryBlocks}
+				{addBlock}
 			</div>
 		)
 	}

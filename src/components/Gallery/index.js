@@ -1,9 +1,12 @@
 import React from 'react'
-import GalleryList from '../components/GalleryList'
+import GalleryList from '../GalleryList'
 import {Modal, Button, message, Input, Select} from 'antd'
-import UploadImg from '../components/UploadImg'
-import config from '../config.js'
+import UploadImg from '../UploadImg'
+import config from '../../config.js'
+import MainStageModal from './MainStageModal'
+import PrintModal from './PrintModal'
 const Option = Select.Option;
+
 
 export default class AddGallery extends React.Component{
 	state = {
@@ -22,6 +25,7 @@ export default class AddGallery extends React.Component{
 	}
 	render(){
 		let {addMainStage, addPrint, relatedId, gallery, subMenuId} = this.state,
+			{mainStageId} = this.props,
 			mainStageImg = [], subMenuImg = [];
 		const subMenu = [
 			[
@@ -35,14 +39,7 @@ export default class AddGallery extends React.Component{
 			],
 		]
 
-		let menu = this.props.params.type == 'livingRoom' ? subMenu[0] : subMenu[1];
-
-		let mainStageId;
-		if(this.props.params.type == 'livingRoom'){
-			mainStageId = 0;
-		}else if (this.props.params.type == 'bedRoom'){
-			mainStageId = 1;
-		}
+		let menu = subMenu[mainStageId];
 
 		gallery.forEach((value,index)=>{
 			if(value.mainStageId === mainStageId){
@@ -56,26 +53,21 @@ export default class AddGallery extends React.Component{
 
 		return(
 			<div>
-				<p>主场景图</p>
+				<p style={{margin: 10}}>主场景图</p>
 				<GalleryList addClick={this._showAddMainStage} img={mainStageImg} maxNumber={1}/>
-				<Select defaultValue='0' onChange={(value)=>{this.setState({subMenuId: value})}}>
+				<Select defaultValue='0' onChange={(value)=>{this.setState({subMenuId: value})}} style={{margin: 10}}>
 					{menu}
 				</Select> 
 				<span>印花图</span>
 				<GalleryList style={{width: 200}} addClick={this._showAddPrint} img={subMenuImg}/>
-				<Modal visible={addMainStage} onOk={this._onOkMainStage} onCancel={this._onCancelMainStage}>
-					<UploadImg maxNumber={1} uploadType='gallery' handleImg={this._handleMainStageImg}/>
-				</Modal>
-				<Modal visible={addPrint} onOk={this._onOkPrint} onCancel={this._onCancelPrint}>
-					<p>缩略图</p>
-					<UploadImg maxNumber={1} uploadType='gallery' handleImg={this._handlePrintThumbnailImg}/>
-					<p>场景图</p>
-					<UploadImg maxNumber={1} uploadType='gallery' handleImg={this._handlePrintStageImg}/>
-					<p>鼠标悬停预览图</p>
-					<UploadImg maxNumber={1} uploadType='gallery' handleImg={this._handlePrintHoverStageImg}/>
-					<p>关联商品ID</p>
-					<Input value={relatedId} onChange={() => {this.setState({relatedId:e.target.value})}}/>
-				</Modal>
+				<MainStageModal visible={addMainStage} onOk={this._onOkMainStage} onCancel={this._onCancelMainStage} handleImg={this._handleMainStageImg}/>
+				<PrintModal visible={addPrint} onOk={this._onOkPrint} 
+							onCancel={this._onCancelPrint} 
+							handlePrintThumbnailImg={this._handlePrintThumbnailImg} 
+							handlePrintStageImg={this._handlePrintStageImg} 
+							handlePrintHoverStageImg={this._handlePrintHoverStageImg} 
+							handleCommodityId={this._handleCommodityId}
+							commotityId={relatedId} />
 			</div>
 		)
 	}
@@ -134,6 +126,9 @@ export default class AddGallery extends React.Component{
 		}
 
 	}
+	_handleCommodityId = (e)=>{
+		this.setState({relatedId:e.target.value})
+	}
 
 
 	_showAddMainStage = ()=>{
@@ -187,12 +182,7 @@ export default class AddGallery extends React.Component{
 	}
 
 	_savePrint = ()=>{
-		let mainStageId;
-		if(this.props.params.type == 'livingRoom'){
-			mainStageId = 0;
-		}else if (this.props.params.type == 'bedRoom'){
-			mainStageId = 1;
-		}
+		let {mainStageId} = this.props;
 		let {subMenuId, printStageUrl,printHoverStageUrl, printThumbnailUrl, relatedId} = this.state;
 		let body = `mainStageId=${mainStageId}&subMenuId=${subMenuId}&thumbnail=${printThumbnailUrl}&stageImg=${printStageUrl}&hoverStageImg=${printHoverStageUrl}&commotityId=${relatedId}`
 
@@ -214,12 +204,7 @@ export default class AddGallery extends React.Component{
 	}
 
 	_saveMainStage = ()=>{
-		let mainStageId;
-		if(this.props.params.type == 'livingRoom'){
-			mainStageId = 0;
-		}else if (this.props.params.type == 'bedRoom'){
-			mainStageId = 1;
-		}
+		let {mainStageId} = this.props;
 
 		let body = `mainStageId=${mainStageId}&stageImg=${this.state.mainStageUrl}`
 		fetch(config.api + '/addMainStage', {
